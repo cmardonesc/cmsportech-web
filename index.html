@@ -3,25 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CMSportech — Ciencia de Datos Aplicada al Fútbol</title>
+  <meta name="description" content="CMSportech: ciencia de datos, tecnología y formación aplicadas al fútbol de alto rendimiento." />
+  <title>CMSportech: Ciencia de Datos Aplicada al Fútbol</title>
+
+  <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- Barlow Condensed (display) · Figtree (body) · JetBrains Mono (code/data) -->
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #0A0E1A;
-      --surface:  #0F1829;
-      --surface2: #151E30;
-      --accent:   #00C2FF;
-      --accent2:  #0077CC;
-      --text:     #E8EDF5;
-      --muted:    #6B7A99;
-      --border:   #1E2A40;
-      --font-display: 'Space Grotesk', sans-serif;
-      --font-body:    'Inter', sans-serif;
+      --bg:        #080C16;
+      --surface:   #0D1422;
+      --surface2:  #121B2E;
+      --surface3:  #192034;
+      --accent:    #00B8F0;
+      --accent-dim: rgba(0,184,240,0.12);
+      --accent2:   #0070BB;
+      --green:     #34D399;
+      --text:      #E4EAF4;
+      --muted:     #7A8BAA;
+      --muted2:    #4A5670;
+      --border:    #1C2640;
+      --border2:   #243050;
+
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Figtree', sans-serif;
       --font-mono:    'JetBrains Mono', monospace;
+
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     html { scroll-behavior: smooth; }
@@ -31,8 +48,15 @@
       color: var(--text);
       font-family: var(--font-body);
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.65;
       overflow-x: hidden;
+    }
+
+    /* ── FOCUS ── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
     }
 
     /* ── NAV ── */
@@ -43,46 +67,95 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2rem 5vw;
-      background: rgba(10,14,26,0.85);
-      backdrop-filter: blur(12px);
+      padding: 1.1rem 5vw;
+      background: rgba(8,12,22,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
+      transition: background 0.3s var(--ease-out);
     }
 
     .nav-logo {
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.02em;
+      font-size: 1.25rem;
+      letter-spacing: 0.03em;
       color: var(--text);
       text-decoration: none;
+      text-transform: uppercase;
     }
-
     .nav-logo span { color: var(--accent); }
 
     .nav-links {
       display: flex;
-      gap: 2rem;
+      gap: 2.25rem;
       list-style: none;
     }
 
     .nav-links a {
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       color: var(--muted);
       text-decoration: none;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       transition: color 0.2s;
     }
-
     .nav-links a:hover { color: var(--accent); }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.25s var(--ease-out), opacity 0.2s;
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      inset: 0;
+      top: 60px;
+      background: rgba(8,12,22,0.97);
+      backdrop-filter: blur(14px);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-mobile a:hover { color: var(--accent); }
 
     /* ── HERO ── */
     #hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 0 5vw;
+      padding: 6rem 5vw 4rem;
       position: relative;
       overflow: hidden;
     }
@@ -91,55 +164,71 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0,194,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,194,255,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
+        linear-gradient(rgba(0,184,240,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,184,240,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
       pointer-events: none;
     }
 
     .hero-glow {
       position: absolute;
-      top: 20%;
-      right: -10%;
-      width: 50vw;
-      height: 50vw;
-      background: radial-gradient(circle, rgba(0,119,204,0.12) 0%, transparent 70%);
+      top: 10%;
+      right: -15%;
+      width: 55vw;
+      height: 55vw;
+      background: radial-gradient(circle, rgba(0,112,187,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-glow2 {
+      position: absolute;
+      bottom: 5%;
+      left: -10%;
+      width: 35vw;
+      height: 35vw;
+      background: radial-gradient(circle, rgba(0,184,240,0.05) 0%, transparent 70%);
       pointer-events: none;
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 780px;
+      max-width: 800px;
     }
 
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      display: flex;
+    .hero-tag {
+      display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      padding: 0.35rem 0.8rem;
+      border: 1px solid rgba(0,184,240,0.25);
+      border-radius: 100px;
+      background: rgba(0,184,240,0.06);
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
     }
 
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 1px;
-      background: var(--accent);
-    }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
       margin-bottom: 1.5rem;
+      text-wrap: balance;
     }
 
     .hero-title em {
@@ -148,23 +237,30 @@
     }
 
     .hero-subtitle {
-      font-size: 1.05rem;
+      font-size: clamp(0.95rem, 1.5vw, 1.05rem);
       color: var(--muted);
-      max-width: 520px;
+      max-width: 500px;
       margin-bottom: 2.5rem;
-      line-height: 1.75;
+      line-height: 1.8;
     }
 
-    /* ── DASHBOARD WIDGET ── */
+    /* ── MINI DASHBOARD ── */
     .dashboard {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: var(--radius-lg);
       padding: 1.4rem 1.6rem;
       margin-bottom: 2.5rem;
-      max-width: 520px;
+      max-width: 500px;
       position: relative;
       overflow: hidden;
+    }
+    .dashboard::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent 60%);
     }
 
     .dashboard-header {
@@ -176,9 +272,9 @@
 
     .dashboard-title {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       color: var(--accent);
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
@@ -187,86 +283,70 @@
       align-items: center;
       gap: 0.4rem;
       font-family: var(--font-mono);
-      font-size: 0.62rem;
-      color: #A8F0B0;
+      font-size: 0.6rem;
+      color: var(--green);
+      letter-spacing: 0.08em;
     }
-
     .dash-live::before {
       content: '';
-      width: 6px; height: 6px;
+      width: 5px; height: 5px;
       border-radius: 50%;
-      background: #A8F0B0;
+      background: var(--green);
       animation: pulse 1.5s ease-in-out infinite;
     }
 
-    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-
-    /* KPI row */
     .kpi-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-      margin-bottom: 1.1rem;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
     }
 
     .kpi {
       background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.75rem 0.8rem;
+      border-radius: var(--radius-md);
+      padding: 0.7rem 0.8rem;
     }
 
     .kpi-val {
       font-family: var(--font-display);
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       font-weight: 700;
       color: var(--accent);
       line-height: 1;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.3rem;
     }
 
     .kpi-unit {
       font-family: var(--font-mono);
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       color: var(--muted);
       display: block;
+      letter-spacing: 0.04em;
     }
 
-    /* Sparkline (line chart) */
-    .chart-block {
-      margin-bottom: 1rem;
-    }
+    .chart-block { margin-bottom: 0.9rem; }
 
     .chart-label {
       font-family: var(--font-mono);
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       color: var(--muted);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       margin-bottom: 0.4rem;
       display: flex;
       justify-content: space-between;
     }
-
     .chart-label span { color: var(--accent); }
 
-    .sparkline-wrap {
-      position: relative;
-      height: 48px;
-    }
+    .sparkline-wrap { position: relative; height: 44px; }
+    .sparkline-wrap svg { width: 100%; height: 100%; overflow: visible; }
 
-    .sparkline-wrap svg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
-
-    /* Bar chart */
     .bar-chart {
       display: flex;
       align-items: flex-end;
-      gap: 5px;
-      height: 52px;
-      margin-bottom: 1rem;
+      gap: 4px;
+      height: 48px;
     }
 
     .bar-col {
@@ -282,17 +362,19 @@
     .bar {
       width: 100%;
       border-radius: 2px 2px 0 0;
-      background: linear-gradient(180deg, var(--accent) 0%, rgba(0,119,204,0.4) 100%);
-      transition: height 1.2s cubic-bezier(.23,1,.32,1);
+      background: linear-gradient(180deg, var(--accent) 0%, rgba(0,112,187,0.35) 100%);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 1.2s var(--ease-out);
     }
 
     .bar-lbl {
       font-family: var(--font-mono);
-      font-size: 0.55rem;
-      color: var(--muted);
-      white-space: nowrap;
+      font-size: 0.52rem;
+      color: var(--muted2);
     }
 
+    /* ── CTAs ── */
     .hero-cta {
       display: flex;
       gap: 1rem;
@@ -301,54 +383,57 @@
 
     .btn-primary {
       background: var(--accent);
-      color: #0A0E1A;
+      color: #06090F;
       font-family: var(--font-display);
-      font-weight: 600;
-      font-size: 0.88rem;
-      padding: 0.85rem 2rem;
-      border-radius: 4px;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.8rem 2rem;
+      border-radius: var(--radius-sm);
       text-decoration: none;
-      letter-spacing: 0.02em;
       transition: background 0.2s, transform 0.15s;
+      border: none;
+      cursor: pointer;
     }
-
-    .btn-primary:hover { background: #33CFFF; transform: translateY(-1px); }
+    .btn-primary:hover { background: #33CFFF; transform: translateY(-2px); }
 
     .btn-ghost {
-      border: 1px solid var(--border);
+      border: 1px solid var(--border2);
       color: var(--text);
       font-family: var(--font-display);
-      font-weight: 500;
-      font-size: 0.88rem;
-      padding: 0.85rem 2rem;
-      border-radius: 4px;
-      text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* ── SECTION BASE ── */
-    section {
-      padding: 6rem 5vw;
-    }
-
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      margin-bottom: 0.75rem;
+      padding: 0.8rem 2rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 5vw; }
+
+    .section-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--muted2);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
     }
 
     .section-title {
       font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
       margin-bottom: 1rem;
-      max-width: 600px;
+      max-width: 700px;
+      text-wrap: balance;
     }
 
     .section-desc {
@@ -356,73 +441,86 @@
       max-width: 560px;
       margin-bottom: 3rem;
       font-size: 1rem;
-      line-height: 1.8;
-    }
-
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
+      line-height: 1.85;
     }
 
     /* ── ABOUT ── */
     #about {
       background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
-    .about-grid {
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
       align-items: center;
-      max-width: 1100px;
-    }
-
-    .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .stat-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-    }
-
-    .stat-number {
-      font-family: var(--font-display);
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-
-    .stat-label {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
     }
 
     .about-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-top: 1.5rem;
+      margin-top: 1.75rem;
     }
 
     .tag {
       background: var(--surface2);
       border: 1px solid var(--border);
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--muted);
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
+      padding: 0.28rem 0.75rem;
+      border-radius: 100px;
       letter-spacing: 0.03em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    .about-right {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .stat-card {
+      padding: 1.75rem 1.5rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .stat-card:nth-child(even) { border-right: none; }
+    .stat-card:nth-child(3),
+    .stat-card:nth-child(4) { border-bottom: none; }
+    .stat-card:hover { background: var(--surface2); }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
     }
 
     /* ── SERVICES ── */
@@ -435,145 +533,134 @@
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
     }
 
     .service-card {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 2rem;
-      transition: border-color 0.25s, transform 0.2s;
+      padding: 2.25rem 2rem;
+      transition: background 0.25s;
       position: relative;
-      overflow: hidden;
     }
+    .service-card:hover { background: var(--surface2); }
 
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      opacity: 0;
-      transition: opacity 0.25s;
-    }
+    /* Different accent colors per service */
+    .service-card:nth-child(1) { --card-accent: var(--accent); }
+    .service-card:nth-child(2) { --card-accent: #7C5CFF; }
+    .service-card:nth-child(3) { --card-accent: var(--green); }
 
-    .service-card:hover {
-      border-color: rgba(0,194,255,0.3);
-      transform: translateY(-3px);
-    }
-
-    .service-card:hover::before { opacity: 1; }
-
-    .service-icon {
-      font-size: 1.6rem;
-      margin-bottom: 1.2rem;
+    .service-num {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--card-accent);
+      letter-spacing: 0.12em;
+      margin-bottom: 1.25rem;
+      opacity: 0.7;
     }
 
     .service-card h3 {
       font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 600;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
       margin-bottom: 0.75rem;
+      color: var(--text);
     }
 
     .service-card p {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 1.2rem;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
     }
 
     .service-items {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 0.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
     }
 
     .service-items li {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--muted);
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      align-items: flex-start;
+      gap: 0.6rem;
+      line-height: 1.5;
     }
 
     .service-items li::before {
       content: '→';
-      color: var(--accent);
+      color: var(--card-accent);
       font-size: 0.65rem;
+      flex-shrink: 0;
+      margin-top: 1px;
     }
 
     /* ── METHODOLOGY ── */
     #methodology {
       background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
       padding: 6rem 5vw;
     }
 
-    .method-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    .method-inner { max-width: 1100px; margin: 0 auto; }
 
     .method-flow {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      margin-top: 3rem;
-      position: relative;
-    }
-
-    .method-flow::before {
-      content: '';
-      position: absolute;
-      top: 2rem;
-      left: 12.5%;
-      right: 12.5%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), var(--accent), transparent);
-      opacity: 0.3;
+      margin-top: 3.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
     }
 
     .method-step {
-      padding: 0 1.5rem;
-      text-align: center;
+      padding: 2rem 1.75rem;
+      border-right: 1px solid var(--border);
+      position: relative;
     }
+    .method-step:last-child { border-right: none; }
 
     .method-num {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      margin-bottom: 1rem;
-      display: block;
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--border2);
+      line-height: 1;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.03em;
     }
 
-    .method-dot {
-      width: 4rem;
-      height: 4rem;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.2rem;
-      font-size: 1.3rem;
+    .method-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
     }
 
     .method-step h4 {
       font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.6rem;
+      color: var(--text);
     }
 
     .method-step p {
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     /* ── TOOLS ── */
@@ -586,54 +673,71 @@
     .tools-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
+      gap: 0.65rem;
       margin-top: 2rem;
     }
 
     .tool-badge {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      padding: 0.45rem 0.9rem;
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text);
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.45rem;
+      transition: border-color 0.2s, color 0.2s;
     }
+    .tool-badge:hover { border-color: var(--accent); color: var(--accent); }
 
     .tool-badge .dot {
-      width: 6px;
-      height: 6px;
+      width: 5px; height: 5px;
       border-radius: 50%;
       background: var(--accent);
+      flex-shrink: 0;
     }
 
     /* ── CONTACT ── */
     #contact {
       background: var(--surface);
-      padding: 6rem 5vw;
-      text-align: center;
+      border-top: 1px solid var(--border);
+      padding: 7rem 5vw;
     }
 
     .contact-inner {
-      max-width: 600px;
+      max-width: 640px;
       margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-inner .section-title {
+      margin: 0 auto 0.75rem;
+      max-width: 100%;
+    }
+
+    .contact-desc {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.8;
     }
 
     .contact-email {
       display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 1rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 3vw, 1.75rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
       color: var(--accent);
       text-decoration: none;
-      border-bottom: 1px solid rgba(0,194,255,0.3);
-      padding-bottom: 2px;
-      margin: 1.5rem 0 2.5rem;
+      border-bottom: 2px solid rgba(0,184,240,0.25);
+      padding-bottom: 3px;
+      margin-bottom: 2.5rem;
       transition: border-color 0.2s;
     }
-
     .contact-email:hover { border-color: var(--accent); }
 
     .contact-links {
@@ -645,29 +749,80 @@
 
     /* ── FOOTER ── */
     footer {
-      padding: 2rem 5vw;
+      padding: 1.75rem 5vw;
       border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
+      color: var(--muted2);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
       color: var(--muted);
+    }
+    .footer-logo span { color: var(--accent); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    @media (max-width: 900px) {
+      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
       .services-grid { grid-template-columns: 1fr; }
       .method-flow { grid-template-columns: 1fr 1fr; }
-      .method-flow::before { display: none; }
-      .hero-title { font-size: 2.2rem; }
+      .method-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .method-step:nth-child(even) { border-right: none; }
+      .method-step:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+
+      #hero { padding: 5rem 5vw 3rem; }
+      .hero-title { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+
+      section { padding: 4.5rem 5vw; }
+      #services { padding: 4.5rem 5vw; }
+      #methodology { padding: 4.5rem 5vw; }
+      #tools { padding: 4rem 5vw; }
+
+      .method-flow { grid-template-columns: 1fr; }
+      .method-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .method-step:last-child { border-bottom: none; }
+
+      .stat-row { grid-template-columns: 1fr; }
+      .stat-card { border-right: none; }
+      .stat-card:nth-child(3) { border-bottom: 1px solid var(--border); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .terminal-cursor { animation: none; }
-      * { transition: none !important; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
   </style>
 </head>
@@ -676,80 +831,92 @@
   <!-- NAV -->
   <nav>
     <a href="#hero" class="nav-logo">CM<span>sportech</span></a>
-    <ul class="nav-links">
+    <ul class="nav-links" role="list">
       <li><a href="#about">// perfil</a></li>
       <li><a href="#services">// servicios</a></li>
       <li><a href="#methodology">// metodología</a></li>
       <li><a href="#contact">// contacto</a></li>
     </ul>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-mobile">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
+  <!-- MOBILE NAV -->
+  <div class="nav-mobile" id="nav-mobile" role="dialog" aria-label="Menú de navegación">
+    <a href="#about" class="mobile-link">Perfil</a>
+    <a href="#services" class="mobile-link">Servicios</a>
+    <a href="#methodology" class="mobile-link">Metodología</a>
+    <a href="#contact" class="mobile-link">Contacto</a>
+  </div>
+
   <!-- HERO -->
-  <section id="hero">
-    <div class="hero-grid-bg"></div>
-    <div class="hero-glow"></div>
+  <section id="hero" aria-label="Presentación">
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-glow2" aria-hidden="true"></div>
+
     <div class="hero-content">
-      <div class="hero-eyebrow">Sport Science &amp; Data Engineering</div>
+      <div class="hero-tag">Sport Science &amp; Data Engineering</div>
+
       <h1 class="hero-title">
         Rendimiento deportivo<br>
         medido con <em>precisión científica</em>
       </h1>
+
       <p class="hero-subtitle">
         Análisis de carga, evaluación neuromuscular y desarrollo de plataformas tecnológicas
         aplicadas al fútbol de alto rendimiento.
       </p>
 
       <!-- MINI DASHBOARD -->
-      <div class="dashboard">
+      <div class="dashboard" aria-label="Dashboard de rendimiento, ejemplo Sub-17">
         <div class="dashboard-header">
           <span class="dashboard-title">// performance_report · Sub-17</span>
-          <span class="dash-live">LIVE</span>
+          <span class="dash-live" aria-label="Estado: en vivo">LIVE</span>
         </div>
 
-        <!-- KPIs -->
         <div class="kpi-row">
           <div class="kpi">
-            <div class="kpi-val" id="kpi-sprint">—</div>
+            <div class="kpi-val" id="kpi-sprint" aria-label="Sprints">0</div>
             <span class="kpi-unit">Sprints · n</span>
           </div>
           <div class="kpi">
-            <div class="kpi-val" id="kpi-hsr">—</div>
+            <div class="kpi-val" id="kpi-hsr" aria-label="HSR en metros">0</div>
             <span class="kpi-unit">HSR · m</span>
           </div>
           <div class="kpi">
-            <div class="kpi-val" id="kpi-force">—</div>
+            <div class="kpi-val" id="kpi-force" aria-label="Peak Force en Newtons">0</div>
             <span class="kpi-unit">Peak Force · N</span>
           </div>
         </div>
 
-        <!-- Sparkline HSR semana -->
         <div class="chart-block">
           <div class="chart-label">
-            HSR semanal (m) — microciclo
-            <span id="sparkline-peak">—</span>
+            <span>HSR semanal (m) · microciclo</span>
+            <span id="sparkline-peak"></span>
           </div>
-          <div class="sparkline-wrap">
-            <svg id="sparkline" viewBox="0 0 460 48" preserveAspectRatio="none">
+          <div class="sparkline-wrap" role="img" aria-label="Gráfico HSR semanal">
+            <svg id="sparkline" viewBox="0 0 460 44" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#00C2FF" stop-opacity="0.25"/>
-                  <stop offset="100%" stop-color="#00C2FF" stop-opacity="0"/>
+                  <stop offset="0%" stop-color="#00B8F0" stop-opacity="0.2"/>
+                  <stop offset="100%" stop-color="#00B8F0" stop-opacity="0"/>
                 </linearGradient>
               </defs>
               <path id="spark-area" fill="url(#sg)"/>
-              <path id="spark-line" fill="none" stroke="#00C2FF" stroke-width="1.5" stroke-linejoin="round"/>
-              <circle id="spark-dot" r="3" fill="#00C2FF"/>
+              <path id="spark-line" fill="none" stroke="#00B8F0" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle id="spark-dot" r="3" fill="#00B8F0"/>
             </svg>
           </div>
         </div>
 
-        <!-- Bar chart peak force sesiones -->
         <div class="chart-block">
           <div class="chart-label">
-            Peak Force por sesión (N)
-            <span style="color:var(--muted)">últimas 7</span>
+            <span>Peak Force por sesión (N)</span>
+            <span style="color:var(--muted2)">últimas 7</span>
           </div>
-          <div class="bar-chart" id="bar-chart"></div>
+          <div class="bar-chart" id="bar-chart" role="img" aria-label="Gráfico Peak Force por sesión"></div>
         </div>
       </div>
 
@@ -761,15 +928,15 @@
   </section>
 
   <!-- ABOUT -->
-  <section id="about">
-    <div class="about-grid">
-      <div>
-        <div class="section-label">// perfil</div>
+  <section id="about" aria-label="Perfil profesional">
+    <div class="about-inner">
+      <div class="reveal">
+        <div class="section-kicker">// perfil</div>
         <h2 class="section-title">Ciencia de datos en el corazón del fútbol</h2>
         <p class="section-desc">
-          Preparador Físico y Analista de Rendimiento con experiencia en selecciones juveniles
-          de la Federación de Fútbol de Chile. Integro GPS, evaluación neuromuscular y
-          desarrollo de software para generar inteligencia real sobre el rendimiento.
+          CMSportech integra GPS, evaluación neuromuscular y desarrollo de software
+          para transformar datos deportivos en inteligencia real y accionable.
+          Una plataforma construida desde la cancha, para quienes toman decisiones en ella.
         </p>
         <div class="about-tags">
           <span class="tag">Catapult GPS</span>
@@ -782,49 +949,50 @@
           <span class="tag">Python · Tableau</span>
         </div>
       </div>
-      <div class="about-stats">
-        <div class="stat-card">
-          <div class="stat-number">5</div>
-          <div class="stat-label">Selecciones juveniles<br>Sub-13 → Sub-20</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">41</div>
-          <div class="stat-label">Tablas en plataforma<br>de rendimiento</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">75</div>
-          <div class="stat-label">Dispositivos GPS<br>gestionados</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">MSc</div>
-          <div class="stat-label">Alto Rendimiento<br>UNAB 2025–2027</div>
+
+      <div class="about-right reveal">
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Selecciones juveniles<br>Sub-13 → Sub-20</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">41</div>
+            <div class="stat-label">Tablas en plataforma<br>de rendimiento</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">75</div>
+            <div class="stat-label">Dispositivos GPS<br>gestionados</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">MSc</div>
+            <div class="stat-label">Alto Rendimiento<br>UNAB 2025–2027</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- SERVICES -->
-  <section id="services">
-    <div class="section-label">// servicios</div>
-    <h2 class="section-title">¿Cómo puedo ayudar a tu organización?</h2>
-    <p class="section-desc">
-      Tres áreas de trabajo integradas: análisis de datos, tecnología aplicada y formación.
-    </p>
-    <div class="services-grid">
+  <section id="services" aria-label="Servicios">
+    <div class="section-kicker reveal">// servicios</div>
+    <h2 class="section-title reveal">¿Qué puede hacer CMSportech por ti?</h2>
+    <p class="section-desc reveal">Tres áreas integradas para profesionales, cuerpos técnicos e instituciones que quieren basar sus decisiones en datos.</p>
+    <div class="services-grid reveal">
       <div class="service-card">
-        <div class="service-icon">📡</div>
+        <div class="service-num">Análisis</div>
         <h3>Análisis de Rendimiento</h3>
         <p>Procesamiento e interpretación de datos GPS, carga interna y evaluación neuromuscular para decisiones basadas en evidencia.</p>
         <ul class="service-items">
           <li>Perfiles de carga externa GPS (HSR, Sprint, AD)</li>
-          <li>Worst-Case Scenario (WCS) con rolling averages</li>
+          <li>Worst-Case Scenario con rolling averages</li>
           <li>Monitoreo CMJ / IMTP / RSI-mod</li>
           <li>Carga interna: wellness, RPE, HRV</li>
           <li>Perfiles jugador F-V y neuromuscular</li>
         </ul>
       </div>
       <div class="service-card">
-        <div class="service-icon">⚙️</div>
+        <div class="service-num">Tecnología</div>
         <h3>Desarrollo Tecnológico</h3>
         <p>Diseño e implementación de plataformas de gestión del rendimiento adaptadas al contexto real del fútbol profesional.</p>
         <ul class="service-items">
@@ -836,7 +1004,7 @@
         </ul>
       </div>
       <div class="service-card">
-        <div class="service-icon">🎓</div>
+        <div class="service-num">Formación</div>
         <h3>Formación</h3>
         <p>Cursos y consultoría para preparadores físicos y analistas que quieren incorporar la ciencia de datos en su práctica profesional.</p>
         <ul class="service-items">
@@ -851,35 +1019,29 @@
   </section>
 
   <!-- METHODOLOGY -->
-  <section id="methodology">
+  <section id="methodology" aria-label="Metodología">
     <div class="method-inner">
-      <div class="section-label">// metodología</div>
-      <h2 class="section-title">Del dato a la decisión</h2>
-      <p class="section-desc">
-        Un proceso sistemático que transforma datos crudos en inteligencia accionable para el cuerpo técnico.
-      </p>
-      <div class="method-flow">
+      <div class="section-kicker reveal">// metodología</div>
+      <h2 class="section-title reveal">Del dato a la decisión</h2>
+      <p class="section-desc reveal">Un proceso sistemático que transforma datos crudos en inteligencia accionable para el cuerpo técnico.</p>
+      <div class="method-flow reveal">
         <div class="method-step">
-          <span class="method-num">01</span>
-          <div class="method-dot">📥</div>
+          <div class="method-icon" aria-hidden="true">📥</div>
           <h4>Captura</h4>
           <p>Integración de fuentes: GPS, fuerza, carga interna, antropometría</p>
         </div>
         <div class="method-step">
-          <span class="method-num">02</span>
-          <div class="method-dot">🔄</div>
+          <div class="method-icon" aria-hidden="true">🔄</div>
           <h4>Procesamiento</h4>
           <p>Limpieza, normalización y estructuración en base de datos centralizada</p>
         </div>
         <div class="method-step">
-          <span class="method-num">03</span>
-          <div class="method-dot">📊</div>
+          <div class="method-icon" aria-hidden="true">📊</div>
           <h4>Análisis</h4>
           <p>Modelado estadístico, perfiles individuales y comparativas de grupo</p>
         </div>
         <div class="method-step">
-          <span class="method-num">04</span>
-          <div class="method-dot">🎯</div>
+          <div class="method-icon" aria-hidden="true">🎯</div>
           <h4>Decisión</h4>
           <p>Reportes accionables para cuerpo técnico, médico y coordinación</p>
         </div>
@@ -888,34 +1050,34 @@
   </section>
 
   <!-- TOOLS -->
-  <section id="tools">
-    <div class="section-label">// stack tecnológico</div>
-    <h2 class="section-title">Herramientas</h2>
-    <div class="tools-row">
-      <div class="tool-badge"><span class="dot"></span>Catapult OpenField</div>
-      <div class="tool-badge"><span class="dot"></span>VALD ForceDecks</div>
-      <div class="tool-badge"><span class="dot"></span>React / TypeScript</div>
-      <div class="tool-badge"><span class="dot"></span>Supabase / PostgreSQL</div>
-      <div class="tool-badge"><span class="dot"></span>Python</div>
-      <div class="tool-badge"><span class="dot"></span>Tableau</div>
-      <div class="tool-badge"><span class="dot"></span>STATSports</div>
-      <div class="tool-badge"><span class="dot"></span>Vite</div>
-      <div class="tool-badge"><span class="dot"></span>Excel / Power Query</div>
-      <div class="tool-badge"><span class="dot"></span>R (básico)</div>
+  <section id="tools" aria-label="Stack tecnológico">
+    <div class="section-kicker reveal">// stack tecnológico</div>
+    <h2 class="section-title reveal">Herramientas</h2>
+    <div class="tools-row reveal">
+      <div class="tool-badge"><span class="dot" aria-hidden="true"></span>Catapult OpenField</div>
+      <div class="tool-badge"><span class="dot" aria-hidden="true"></span>VALD ForceDecks</div>
+      <div class="tool-badge"><span class="dot" aria-hidden="true"></span>React / TypeScript</div>
+      <div class="tool-badge"><span class="dot" aria-hidden="true"></span>Supabase / PostgreSQL</div>
+      <div class="tool-badge"><span class="dot" aria-hidden="true"></span>Python</div>
+      <div class="tool-badge"><span class="dot" aria-hidden="true"></span>Tableau</div>
+      <div class="tool-badge"><span class="dot" aria-hidden="true"></span>STATSports</div>
+      <div class="tool-badge"><span class="dot" aria-hidden="true"></span>Vite</div>
+      <div class="tool-badge"><span class="dot" aria-hidden="true"></span>Excel / Power Query</div>
+      <div class="tool-badge"><span class="dot" aria-hidden="true"></span>R</div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact">
+  <section id="contact" aria-label="Contacto">
     <div class="contact-inner">
-      <div class="section-label">// contacto</div>
-      <h2 class="section-title" style="max-width:100%;margin-bottom:0.5rem;">¿Trabajamos juntos?</h2>
-      <p style="color:var(--muted);font-size:0.95rem;margin-bottom:1rem;">
-        Disponible para proyectos con clubes, federaciones y organizaciones de alto rendimiento.
+      <div class="section-kicker reveal">// contacto</div>
+      <h2 class="section-title reveal">¿Tienes un desafío de datos?</h2>
+      <p class="contact-desc reveal">
+        Si trabajas en rendimiento deportivo y quieres dar el salto a los datos,<br>conversemos.
       </p>
-      <a href="mailto:contacto@cmsportech.com" class="contact-email">contacto@cmsportech.com</a>
-      <div class="contact-links">
-        <a href="https://www.linkedin.com/in/camilomoyanosportech" target="_blank" class="btn-ghost">LinkedIn</a>
+      <a href="mailto:contacto@cmsportech.com" class="contact-email reveal">contacto@cmsportech.com</a>
+      <div class="contact-links reveal">
+        <a href="https://www.linkedin.com/in/camilomoyanosportech" target="_blank" rel="noopener noreferrer" class="btn-ghost">LinkedIn</a>
         <a href="#" class="btn-ghost">Instagram</a>
         <a href="#" class="btn-primary">Descargar CV</a>
       </div>
@@ -924,13 +1086,44 @@
 
   <!-- FOOTER -->
   <footer>
-    <span>© 2026 CMSportech — Camilo Moyano</span>
-    <span style="color:var(--border)">cmsportech.com</span>
+    <span class="footer-logo">CM<span>sportech</span></span>
+    <span>© 2026 Camilo Moyano</span>
+    <span>cmsportech.com</span>
   </footer>
 
   <script>
+    // ── Mobile nav ──
+    const toggle = document.querySelector('.nav-toggle');
+    const mobileNav = document.getElementById('nav-mobile');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen);
+      toggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menú');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+        mobileNav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        toggle.focus();
+      }
+    });
+
     // ── KPI counter animation ──
-    function countUp(id, end, duration, decimals=0) {
+    function countUp(id, end, duration, decimals = 0) {
       const el = document.getElementById(id);
       if (!el) return;
       const start = performance.now();
@@ -942,20 +1135,20 @@
       })(start);
     }
 
-    // ── Sparkline (line chart) ──
+    // ── Sparkline ──
     const hsrData = [420, 610, 530, 780, 690, 847, 720];
-    function drawSparkline(data) {
-      const W = 460, H = 48;
-      const min = Math.min(...data), max = Math.max(...data);
-      const px = (i) => (i / (data.length - 1)) * W;
-      const py = (v) => H - ((v - min) / (max - min)) * (H - 6) - 3;
-      const pts = data.map((v, i) => `${px(i)},${py(v)}`).join(' ');
-      const last = data.length - 1;
 
-      document.getElementById('spark-line').setAttribute('d',
-        `M${data.map((v,i)=>`${px(i)},${py(v)}`).join('L')}`);
+    function drawSparkline(data) {
+      const W = 460, H = 44;
+      const min = Math.min(...data), max = Math.max(...data);
+      const px = i => (i / (data.length - 1)) * W;
+      const py = v => H - ((v - min) / (max - min)) * (H - 6) - 3;
+      const last = data.length - 1;
+      const pts = data.map((v, i) => `${px(i)},${py(v)}`).join('L');
+
+      document.getElementById('spark-line').setAttribute('d', `M${pts}`);
       document.getElementById('spark-area').setAttribute('d',
-        `M${px(0)},${H} L${data.map((v,i)=>`${px(i)},${py(v)}`).join('L')} L${px(last)},${H}Z`);
+        `M${px(0)},${H} L${pts} L${px(last)},${H}Z`);
       document.getElementById('spark-dot').setAttribute('cx', px(last));
       document.getElementById('spark-dot').setAttribute('cy', py(data[last]));
       document.getElementById('sparkline-peak').textContent = `peak: ${max}m`;
@@ -963,7 +1156,8 @@
 
     // ── Bar chart ──
     const forceData = [1820, 2140, 1960, 2380, 2210, 2490, 2350];
-    const dayLabels = ['L','M','X','J','V','S','D'];
+    const dayLabels = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+
     function drawBars(data) {
       const container = document.getElementById('bar-chart');
       const max = Math.max(...data);
@@ -980,19 +1174,32 @@
         col.appendChild(bar);
         col.appendChild(lbl);
         container.appendChild(col);
-        // animate
+        bar.style.height = ((v / max) * 40) + 'px';
         setTimeout(() => {
-          bar.style.height = ((v / max) * 44) + 'px';
-        }, 200 + i * 80);
+          bar.style.transform = 'scaleY(1)';
+        }, 300 + i * 70);
       });
     }
+
+    // ── Scroll reveal ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
 
     // ── Init on load ──
     window.addEventListener('load', () => {
       setTimeout(() => {
         countUp('kpi-sprint', 18, 1200, 0);
-        countUp('kpi-hsr',    847, 1600, 0);
-        countUp('kpi-force',  2490, 1800, 0);
+        countUp('kpi-hsr', 847, 1600, 0);
+        countUp('kpi-force', 2490, 1800, 0);
         drawSparkline(hsrData);
         drawBars(forceData);
       }, 400);
