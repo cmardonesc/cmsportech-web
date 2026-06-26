@@ -10,7 +10,7 @@ Dos audiencias en paralelo: (1) Directores técnicos, coordinadores de alto rend
 
 ## Product Purpose
 
-Portfolio profesional de Camilo Moyano — preparador físico y analista de rendimiento con experiencia en selecciones juveniles de la FFCH. El sitio debe posicionar a Camilo como el profesional que une ciencia de datos, tecnología y experiencia real en el fútbol de alto rendimiento. El éxito es que los visitantes terminen convencidos del expertise y den el paso de contactar directamente.
+Portfolio profesional de Camilo Mardones — preparador físico y analista de rendimiento con experiencia en selecciones juveniles de la FFCH. El sitio debe posicionar a Camilo como el profesional que une ciencia de datos, tecnología y experiencia real en el fútbol de alto rendimiento. El éxito es que los visitantes terminen convencidos del expertise y den el paso de contactar directamente.
 
 ## Brand Personality
 
